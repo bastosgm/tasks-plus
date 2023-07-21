@@ -17,6 +17,14 @@ export default function Home() {
           <h1 className={styles.title}>
             A complete and different &quot;todo&quot; app for you!{" "}
           </h1>
+          <div className={styles.infoContent}>
+            <section className={styles.box}>
+              <span>+12 posts</span>
+            </section>
+            <section className={styles.box}>
+              <span>+90 comments</span>
+            </section>
+          </div>
         </div>
       </main>
     </>
