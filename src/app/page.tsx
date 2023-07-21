@@ -14,17 +14,19 @@ export default function Home() {
             src={heroImg}
             priority
           ></Image>
-          <h1 className={styles.title}>
-            A complete and different &quot;todo&quot; app for you!{" "}
-          </h1>
-          <div className={styles.infoContent}>
-            <section className={styles.box}>
-              <span>+12 posts</span>
-            </section>
-            <section className={styles.box}>
-              <span>+90 comments</span>
-            </section>
-          </div>
+          <section className={styles.infoContent}>
+            <h1 className={styles.title}>
+              A complete and different &quot;todo&quot; app for you!{" "}
+            </h1>
+            <div className={styles.boxWrapper}>
+              <div className={styles.box}>
+                <span>+12 posts</span>
+              </div>
+              <div className={styles.box}>
+                <span>+90 comments</span>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
     </>

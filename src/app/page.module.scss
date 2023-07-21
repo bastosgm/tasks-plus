@@ -1,7 +1,7 @@
 .container {
   background-color: #0f0f0f;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 76px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,37 +9,48 @@
 
   .logoContent {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 
     .hero {
-      max-width: 30rem;
-      object-fit: contain;
       width: auto;
+      max-width: 30rem;
       height: auto;
+
+      object-fit: contain;
     }
 
     .title {
-      margin: 1.75rem;
-      width: 400px;
+      width: 18.75rem;
+      margin: 28px;
 
       color: #fff;
-      text-align: center;
 
+      text-align: center;
       line-height: 150%;
     }
 
     .infoContent {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: space-around;
-      width: 500px;
+      width: 31.25rem;
+
+      .boxWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 6.875rem;
+      }
 
       .box {
         background-color: #fafafa;
-        padding: 15px 45px;
-        border-radius: 5px;
+        padding: 0.9375rem 2.8125rem;
+        border-radius: 0.3125rem;
+
+        text-align: center;
+
         transition: transform 0.2s;
       }
 
@@ -51,20 +62,25 @@
 }
 
 @media screen and (max-width: 580px) {
+  .logoContent {
+    flex-direction: column;
+  }
+
   .hero {
-    max-width: 80%;
+    width: 70% !important;
   }
 
   .title {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .infoContent {
     flex-direction: column;
 
     .box {
-      width: 80%;
-      margin-bottom: 15px;
+      width: 100%;
+      margin-bottom: 0.9375rem;
+
       text-align: center;
     }
   }
