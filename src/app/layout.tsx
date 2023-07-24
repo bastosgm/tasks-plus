@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import Header from "./components/header";
+import { AuthProvider } from "./components/Providers/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Tasks+ | A complete todo app",
@@ -25,7 +26,7 @@ export default function RootLayout({
     <html lang="en" className={roboto.className}>
       <body>
         <Header />
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
