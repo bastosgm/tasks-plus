@@ -1,13 +1,15 @@
+"use client";
+
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import Header from "./components/header";
-import { AuthProvider } from "./components/Providers/AuthProvider";
+import Header from "../components/header";
+import { AuthProvider } from "../components/Providers/AuthProvider";
 
-export const metadata: Metadata = {
-  title: "Tasks+ | A complete todo app",
-  description: "A complete todo app",
-};
+// export const metadata: Metadata = {
+//   title: "Tasks+ | A complete todo app",
+//   description: "A complete todo app",
+// };
 
 const roboto = Roboto({
   weight: ["100", "300", "500", "700", "900"],
@@ -24,9 +26,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={roboto.className}>
+      <head />
       <body>
-        <Header />
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <Header />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
