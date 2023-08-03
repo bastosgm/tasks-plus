@@ -1,13 +1,19 @@
+import { Metadata } from "next";
 import styles from "./styles.module.scss";
-import Head from "next/head";
+import authOptions from "@/lib/auth/[....nextauth]";
+import { redirect } from "next/navigation";
+import { getSession } from "./getSession";
 
-export default function Dashboard() {
+export const metadata: Metadata = {
+  title: "Meu painel de tarefas",
+};
+
+export default async function Dashboard() {
+  const serverSession = await getSession(authOptions);
+  if (!serverSession?.user) redirect("/");
+
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Meu painel de tarefas</title>
-      </Head>
-
       <h1>Página painel</h1>
     </div>
   );
