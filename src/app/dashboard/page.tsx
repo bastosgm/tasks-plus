@@ -2,16 +2,18 @@ import { Metadata } from "next";
 import styles from "./styles.module.scss";
 import authOptions from "@/lib/auth/[....nextauth]";
 import { redirect } from "next/navigation";
-import { getSession } from "./getSession";
 import { Textarea } from "@/components/textarea";
+import { FiShare2 } from "react-icons/fi";
+import { FaTrash } from "react-icons/fa";
+import { getServerSession } from "next-auth";
 
 export const metadata: Metadata = {
   title: "Meu painel de tarefas",
 };
 
 export default async function Dashboard() {
-  const serverSession = await getSession(authOptions);
-  if (!serverSession?.user) redirect("/");
+  const session = await getServerSession(authOptions);
+  if (!session?.user) redirect("/");
 
   return (
     <div className={styles.container}>
@@ -36,6 +38,24 @@ export default async function Dashboard() {
               </button>
             </form>
           </div>
+        </section>
+
+        <section className={styles.taskContainer}>
+          <h2>My tasks</h2>
+          <article className={styles.task}>
+            <div className={styles.tagContainer}>
+              <label className={styles.tag}>PUBLIC</label>
+              <button className={styles.shareButton}>
+                <FiShare2 size={22} color="#3183ff" />
+              </button>
+            </div>
+            <div className={styles.taskContent}>
+              <p>My first simple of task!</p>
+              <button className={styles.trashButton}>
+                <FaTrash size={24} color="#ea3140" />
+              </button>
+            </div>
+          </article>
         </section>
       </main>
     </div>
