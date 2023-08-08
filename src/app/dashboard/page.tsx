@@ -1,21 +1,21 @@
-import { Metadata } from "next";
+"use client";
+
 import styles from "./styles.module.scss";
-import authOptions from "@/lib/auth/[....nextauth]";
 import { redirect } from "next/navigation";
 import { Textarea } from "@/components/textarea";
 import { FiShare2 } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
-import { getServerSession } from "next-auth";
-import { useState } from "react";
-
-export const metadata: Metadata = {
-  title: "Meu painel de tarefas",
-};
+import { ChangeEvent, useState } from "react";
+import { useSession } from "next-auth/react";
 
 export default function Dashboard() {
-  getServerSession(authOptions).then((session) => {
-    if (!session?.user) redirect("/");
-  });
+  const { data: session, status } = useSession();
+  console.log(session);
+
+  if (!session?.user) redirect("/");
+
+  const [input, setInput] = useState("");
+  const [isPublic, setIsPublic] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -24,13 +24,21 @@ export default function Dashboard() {
           <div className={styles.contentForm}>
             <h1 className={styles.title}>What is your next task now?</h1>
             <form>
-              <Textarea placeholder="Type your task here" />
+              <Textarea
+                placeholder="Type your task here"
+                value={input}
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                  setInput(e.target.value)
+                }
+              />
               <div className={styles.checkboxArea}>
                 <input
                   type="checkbox"
                   id="checkbox"
                   name="checkbox"
                   className={styles.checkbox}
+                  checked={isPublic}
+                  onChange={(e) => setIsPublic(e.target.checked)}
                 />
                 <label htmlFor="checkbox">Let task public?</label>
               </div>
