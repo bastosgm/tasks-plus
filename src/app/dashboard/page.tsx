@@ -6,14 +6,16 @@ import { Textarea } from "@/components/textarea";
 import { FiShare2 } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
 import { getServerSession } from "next-auth";
+import { useState } from "react";
 
 export const metadata: Metadata = {
   title: "Meu painel de tarefas",
 };
 
-export default async function Dashboard() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) redirect("/");
+export default function Dashboard() {
+  getServerSession(authOptions).then((session) => {
+    if (!session?.user) redirect("/");
+  });
 
   return (
     <div className={styles.container}>
