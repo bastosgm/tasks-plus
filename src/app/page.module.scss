@@ -1,11 +1,12 @@
 .container {
-  background-color: #0f0f0f;
-  width: 100%;
-  height: calc(100vh - 76px);
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 4.75rem);
+
+  background-color: #0f0f0f;
 
   .logoContent {
     display: flex;
@@ -13,8 +14,8 @@
     justify-content: space-between;
 
     .hero {
-      width: auto;
       max-width: 30rem;
+      width: auto;
       height: auto;
 
       object-fit: contain;
@@ -22,7 +23,7 @@
 
     .title {
       width: 18.75rem;
-      margin: 28px;
+      margin: 1.75rem 1.75rem 1.75rem 1.75rem;
 
       color: #fff;
 
@@ -45,9 +46,10 @@
       }
 
       .box {
-        background-color: #fafafa;
         padding: 0.9375rem 2.8125rem;
         border-radius: 0.3125rem;
+
+        background-color: #fafafa;
 
         text-align: center;
 
@@ -79,7 +81,7 @@
 
     .box {
       width: 100%;
-      margin-bottom: 0.9375rem;
+      margin: 0 0 0.9375rem 0;
 
       text-align: center;
     }
