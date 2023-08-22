@@ -9,62 +9,20 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
 import { db } from "@/services/firebaseConnection";
-import {
-  addDoc,
-  collection,
-  query,
-  orderBy,
-  where,
-  onSnapshot,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
+import { addDoc, collection, doc, deleteDoc } from "firebase/firestore";
 import Link from "next/link";
-
-interface TasksProps {
-  id: string;
-  created: Date;
-  public: boolean;
-  task: string;
-  user: string;
-}
+import { TasksProps } from "./interfaces";
+import { loadTasks } from "@/lib/loadTasks";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
-
-  if (status === "unauthenticated") redirect("/");
-
   const [input, setInput] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [tasks, setTasks] = useState<TasksProps[]>([]);
 
-  useEffect(() => {
-    async function loadTasks() {
-      const tasksRef = collection(db, "tasks");
-      const q = query(
-        tasksRef,
-        orderBy("created", "desc"),
-        where("user", "==", session?.user?.email || ""),
-      );
+  if (status === "unauthenticated") redirect("/");
 
-      onSnapshot(q, (snapshot) => {
-        let taskList: TasksProps[] = [];
-
-        snapshot.forEach((doc) => {
-          taskList.push({
-            id: doc.id,
-            task: doc.data().task,
-            created: doc.data().created,
-            user: doc.data().user,
-            public: doc.data().public,
-          });
-        });
-
-        setTasks(taskList);
-      });
-    }
-    loadTasks();
-  }, [session?.user?.email]);
+  loadTasks(session).then((taskList) => setTasks(taskList));
 
   async function handleRegisterTask(e: FormEvent) {
     e.preventDefault();
@@ -133,6 +91,8 @@ export default function Dashboard() {
 
         <section className={styles.taskContainer}>
           <h2>My tasks</h2>
+          {!session && <p>Carregando...</p>}
+          {session && tasks.length < 1 && <p>There&#39;s no task yet.</p>}
           {tasks.map((task) => (
             <article key={task.id} className={styles.task}>
               {task.public && (
